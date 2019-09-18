@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Richmond Liang Project 2</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark bg-dark static-top">
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h1 class="mt-5">Welcome to the League Management Database</h1>
+            </div>
+        </div>
+        <div class="row panel-group" id="Option">
+            <br><br>
+            <!-------------------------------------- START PLAYER FUNCTIONS-------------------------------------->
+            <div class="col-lg-12 mb-5">
+                <h2 class="text-center"><i class="material-icons">assignment_ind</i></h2>
+                <h3 class="text-center mb-4">Manage Players</h3>
+                <div class="row justify-content-center">
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" onclick="playerDisplay()">View All Players</button>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#SpecificPlayer" onclick="onclickUpdatePlayerDropdown()">View Specific Player</button>
+                        <div class="mb-5 panel-collapse collapse" id="SpecificPlayer" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="SpecificPlayerSelect">Select Player</label>
+                                <br>
+                                <select class="form-control" name="SpecificPlayerSelect" id="SpecificPlayerSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitSpecificPlayer()">
+                                <div style="display: none;" id="SpecificPlayerOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#AddPlayer" onclick="onclickUpdatePlayerDropdown()">Add Player</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse in" id="AddPlayer" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="AddPlayerFirstName">First Name:</label>
+                                <input type="text" class="form-control" name="AddPlayerFirstName" id="AddPlayerFirstName" value="" required>
+                                <br>
+                                <label for="AddPlayerLastName">Last Name:</label>
+                                <input type="text" class="form-control" name="AddPlayerLastName" id="AddPlayerLastName" value="" required>
+                                <br>
+                                <label for="AddPlayerSalary">Salary:</label>
+                                <input type="number" min="0" step="1000" class="form-control" name="AddPlayerSalary" id="AddPlayerSalary" value="" required>
+                                <label for="AddPlayerTeam">Team</label>
+                                <select class="form-control" name="AddPlayerTeam" id="AddPlayerTeam">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <label for="AddPlayerSponsor">Sponsor:</label>
+                                <select class="form-control" name="AddPlayerSponsor" id="AddPlayerSponsor">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <button type="button" data-toggle="collapse" data-parent="#Option" onclick="submitAddPlayer()">Submit</button>
+                                <div style="display: none;" id="AddPlayerOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#EditPlayer" onclick="onclickUpdatePlayerDropdown()">Edit Player Info</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse" id="EditPlayer" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="EditPlayerSelect">Select Player</label>
+                                <select class="form-control" name="EditPlayerSelect" id="EditPlayerSelect">
+                                </select>
+                                <br>
+                                <label for="EditPlayerSalary">Edit Salary</label>
+                                <input type="number" min="0" step="1000" class="form-control" name="EditPlayerSalary" id="EditPlayerSalary" value="">
+                                <br>
+                                <label for="EditPlayerTeam">Edit Team</label>
+                                <select class="form-control" name="EditPlayerTeam" id="EditPlayerTeam">
+                                    <option value="">Select a Team</option>
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <label for="EditPlayerSponsor">Edit Sponsor</label>
+                                <select class="form-control" name="EditPlayerSponsor" id="EditPlayerSponsor">
+                                    <option value="">Select a Sponsor</option>
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitEditPlayer()">
+                                <input type="button" value="Clear" onclick="clearEditPlayer()">
+                                <div style="display: none;" id="EditPlayerOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#DeletePlayer" onclick="onclickUpdatePlayerDropdown()">Delete Player</button>
+                        <div class="mb-5 panel-collapse collapse" id="DeletePlayer" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="DeletePlayerSelect">Select Player</label>
+                                <br>
+                                <select class="form-control" name="DeletePlayerSelect" id="DeletePlayerSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitDeletePlayer()">
+                                <div style="display: none;" id="DeletePlayerOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="table table-bordered table-striped" style="display: none;" id="ViewPlayerOutput">
+                </div>
+                <div class="table table-bordered table-striped" style="display: none;" id="SpecificPlayerOutputTable">
+                </div>
+            </div>
+            <!-------------------------------------- END PLAYER FUNCTIONS-------------------------------------->
+            <br><br>
+            <!-------------------------------------- START TEAM FUNCTIONS-------------------------------------->
+            <div class="col-lg-12 mb-5">
+                <h2 class="text-center"><i class="material-icons">group</i></h2>
+                <h3 class="text-center mb-4">Manage Teams</h3>
+                <div class="row justify-content-center">
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" onclick="teamDisplay()">View All Teams</button>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#SpecificTeam" onclick="onclickUpdateTeamDropdown()">View Specific Team</button>
+                        <div class="mb-5 panel-collapse collapse" id="SpecificTeam" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="SpecificTeamSelect">Select Team</label>
+                                <br>
+                                <select class="form-control" name="SpecificTeamSelect" id="SpecificTeamSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitSpecificTeam()">
+                                <div style="display: none;" id="SpecificTeamOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#AddTeam" onclick="onclickUpdateTeamDropdown()">Add Team</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse in" id="AddTeam" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="AddTeamName">Team Name</label>
+                                <input type="text" class="form-control" name="AddTeamName" id="AddTeamName" value="" required>
+                                <br>
+                                <label for="AddTeamLeague">Current League</label>
+                                <select class="form-control" name="AddTeamLeague" id="AddTeamLeague" required>
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <label for="AddTeamSponsor">Sponsor:</label>
+                                <select class="form-control" name="AddTeamSponsor" id="AddTeamSponsor" required>
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <button type="button" data-toggle="collapse" data-parent="#Option" onclick="submitAddTeam()">Submit</button>
+                                <div style="display: none;" id="AddTeamOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#EditTeam" onclick="onclickUpdateTeamDropdown()">Edit Team Info</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse" id="EditTeam" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="EditTeamSelect">Select Team</label>
+                                <select class="form-control" name="EditTeamSelect" id="EditTeamSelect" required>
+                                </select>
+                                <br>
+                                <label for="EditTeamLeague">Edit Current League</label>
+                                <select class="form-control" name="EditTeamLeague" id="EditTeamLeague">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <label for="EditTeamSponsor">Edit Sponsor</label>
+                                <select class="form-control" name="EditTeamSponsor" id="EditTeamSponsor">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitEditTeam()">
+                                <input type="button" value="Clear" onclick="clearEditTeam()">
+                                <div style="display: none;" id="EditTeamOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#DeleteTeam" onclick="onclickUpdateTeamDropdown()">Delete Team</button>
+                        <div class="mb-5 panel-collapse collapse" id="DeleteTeam" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="ID">Select Team</label>
+                                <br>
+                                <select class="form-control" name="DeleteTeamSelect" id="DeleteTeamSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitDeleteTeam()">
+                                <div style="display: none;" id="DeleteTeamOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="table table-bordered table-striped" style="display: none;" id="ViewTeamOutput">
+                </div>
+                <div class="table table-bordered table-striped" style="display: none;" id="SpecificTeamOutputTable">
+                </div>
+            </div>
+            <!-------------------------------------- END TEAM FUNCTIONS-------------------------------------->
+            <br><br>
+            <!-------------------------------------- START LEAGUE FUNCTIONS-------------------------------------->
+            <div class="col-lg-12 mb-5">
+                <h2 class="text-center "><i class="material-icons">stars</i></h2>
+                <h3 class="text-center mb-4 ">Manage Active Leagues</h3>
+                <div class="row justify-content-center">
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" onclick="leagueDisplay()">View All Active Leagues</button>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#SpecificLeague" onclick="onclickUpdateLeagueDropdown()">View Specific League</button>
+                        <div class="mb-5 panel-collapse collapse" id="SpecificLeague" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="SpecificLeagueSelect">Select League</label>
+                                <br>
+                                <select class="form-control" name="SpecificLeagueSelect" id="SpecificLeagueSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitSpecificLeague()">
+                                <div style="display: none;" id="SpecificLeagueOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#AddLeague" onclick="onclickUpdateLeagueDropdown()">Add League</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse in" id="AddLeague" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="AddLeagueName">League Name</label>
+                                <input type="text" class="form-control" name="AddLeagueName" id="AddLeagueName" value="" required>
+                                <br>
+                                <label for="AddLeagueDate">Set End Date:</label>
+                                <input type="text" class="form-control" name="AddLeagueDate" id="AddLeagueDate" value="" required>
+                                <br>
+                                <label for="AddLeagueSponsor">Sponsor:</label>
+                                <select class="form-control" name="AddLeagueSponsor" id="AddLeagueSponsor">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <button type="button" data-toggle="collapse" data-parent="#Option" onclick="submitAddLeague()">Submit</button>
+                                <div style="display: none;" id="AddLeagueOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#EditLeague" onclick="onclickUpdateLeagueDropdown()">Edit League Info</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse" id="EditLeague" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="EditLeagueSelect">Select League</label>
+                                <select class="form-control" name="EditLeagueSelect" id="EditLeagueSelect">
+                                </select>
+                                <br>
+                                <label for="EditLeagueDate">Edit End Date</label>
+                                <input type="text" class="form-control" name="EditLeagueDate" id="EditLeagueDate" value="">
+                                <br>
+                                <label for="EditLeagueSponsor">Edit Sponsor</label>
+                                <select class="form-control" name="EditLeagueSponsor" id="EditLeagueSponsor">
+                                    <option value="None">None</option>
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitEditLeague()">
+                                <input type="button" value="Clear" onclick="clearEditLeague()">
+                                <div style="display: none;" id="EditLeagueOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#DeleteLeague" onclick="onclickUpdateLeagueDropdown()">Delete League</button>
+                        <div class="mb-5 panel-collapse collapse" id="DeleteLeague" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="DeleteLeagueSelect">Select League</label>
+                                <br>
+                                <select class="form-control" name="DeleteLeagueSelect" id="DeleteLeagueSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitDeleteLeague()">
+                                <div style="display: none;" id="DeleteLeagueOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" onclick="submitClearLeague()">Clear All Inactive Leagues</button>
+                        <div style="display: none;" id="ClearLeagueOutput">
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="table table-bordered table-striped" style="display: none;" id="ViewLeagueOutput">
+                </div>
+                <div class="table table-bordered table-striped" style="display: none;" id="SpecificLeagueOutputTable">
+                </div>
+            </div>
+            <!-------------------------------------- END LEAGUE FUNCTIONS-------------------------------------->
+            <br><br>
+            <!-------------------------------------- START SPONSOR FUNCTIONS-------------------------------------->
+            <div class="col-lg-12 mb-5">
+                <h2 class="text-center"><i class="material-icons">perm_identity</i></h2>
+                <h3 class="text-center mb-4">Manage Sponsors</h3>
+                <div class="row justify-content-center">
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" onclick="sponsorDisplay()">View All Sponsors</button>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <div class="panel-heading">
+                            <button type="button" class=" btn btn-info" data-toggle="collapse" href="#AddSponsor">Add Sponsor</button>
+                        </div>
+                        <div class="mb-5 panel-collapse collapse in" id="AddSponsor" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="AddSponsorName">Sponsor Name:</label>
+                                <input type="text" class="form-control" name="AddSponsorName" id="AddSponsorName" value="" required>
+                                <br>
+                                <button type="button" data-toggle="collapse" data-parent="#Option" onclick="submitAddSponsor()">Submit</button>
+                                <div style="display: none;" id="AddSponsorOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default mr-2">
+                        <button type="button" class=" btn btn-info" data-toggle="collapse" href="#DeleteSponsor" onclick="onclickUpdateSponsorDropdown()">Delete Sponsor</button>
+                        <div class="mb-5 panel-collapse collapse" id="DeleteSponsor" data-parent="#Option">
+                            <div class="panel-body">
+                                <br>
+                                <label for="DeleteSponsorSelect">Select Sponsor</label>
+                                <br>
+                                <select class="form-control" name="DeleteSponsorSelect" id="DeleteSponsorSelect">
+                                </select>
+                                <br>
+                                <input type="button" value="Submit" onclick="submitDeleteSponsor()">
+                                <div style="display: none;" id="DeleteSponsorOutput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="table table-bordered table-striped" style="display: none;" id="ViewSponsorOutput">
+                </div>
+            </div>
+            <!-------------------------------------- END SPONSOR FUNCTIONS-------------------------------------->
+        </div>
+    </div>
+
+    <br><br><br>
+    <footer class="py-1 bg-dark mt-5 fixed-bottom">
+        <div class="container">
+            <p class="text-light">Template credits to <a class="text-info" href="https://startbootstrap.com/template-overviews/bare/">Start Bootstrap</a></p>
+        </div>
+    </footer>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/mainfunctions.js"></script>
+<script>
+    $(function() {
+        $("#AddLeagueDate").datepicker();
+        $("#EditLeagueDate").datepicker();
+    });
+
+</script>
+
+</html>
